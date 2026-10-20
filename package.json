@@ -1,0 +1,20 @@
+{
+  "name": "mokepon",
+  "version": "1.0.0",
+  "description": "Juego multijugador en tiempo real Mokepon con Canvas y Node.js Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jonathan-stack23/Curso.git"
+  },
+  "author": "Jonathan Josué Martínez Cetina",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.3"
+  }
+}

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <title>MOKEPON! - Batalla Multijugador</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Modern Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./styles.css"> 
+    </head>
+    <body>
+        <!-- Dynamic ambient background glow -->
+        <div class="ambient-glow glow-1"></div>
+        <div class="ambient-glow glow-2"></div>
+        <div class="ambient-glow glow-3"></div>
+
+        <main class="main-container">
+            <!-- Header Global -->
+            <header class="app-header">
+                <div class="logo-box">
+                    <span class="logo-icon">⚡</span>
+                    <h1 class="titulo">MOKEPON<span class="logo-accent">!</span></h1>
+                </div>
+                <div class="server-badge">
+                    <span class="pulse-dot"></span>
+                    <span class="server-status-text">Multijugador en Línea</span>
+                </div>
+            </header>
+
+            <!-- SECCIÓN 1: Seleccionar Mascota -->
+            <section id="seleccionar-mascota" class="glass-card section-active">
+                <div class="section-heading">
+                    <span class="step-badge">Paso 1 de 2</span>
+                    <h2 class="subtitulo">Elige a tu compañero de batalla</h2>
+                    <p class="section-desc">Cada Mokepon posee afinidades elementales únicas. Selecciona uno para entrar al mapa.</p>
+                </div>
+
+                <div id="contenedorTarjetas" class="tarjetas">
+                    <!-- Las tarjetas de los Mokepones se insertan dinámicamente -->
+                </div>
+
+                <div class="action-footer">
+                    <button id="boton-mascota" class="btn-primary">
+                        <span>Entrar al Mapa</span>
+                        <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </button>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 2: Ver Mapa -->
+            <section id="ver-mapa" class="glass-card">
+                <div class="section-heading">
+                    <span class="step-badge live-badge">En Vivo</span>
+                    <h2 class="subtitulo">Recorre el mapa con tu Mokepon</h2>
+                    <div class="map-instruction-pill">
+                        <span class="hint-icon">🕹️</span>
+                        <span>Muévete con las <strong>flechas del teclado</strong> o la <strong>cruceta táctil</strong>. ¡Acércate a un rival para iniciar la batalla!</span>
+                    </div>
+                </div> 
+
+                <!-- Marco arcade para el canvas -->
+                <div class="canvas-wrapper">
+                    <div class="canvas-decor top-decor">
+                        <span class="tech-tag">RADAR 01</span>
+                        <span class="live-tag">● EN TIEMPO REAL</span>
+                    </div>
+                    <canvas id="mapa"></canvas>
+                </div>
+
+                <!-- Control D-Pad Arcade para móviles y mouse -->
+                <div class="controls-container">
+                    <span class="controls-label">Controles de Movimiento</span>
+                    <div class="dpad">
+                        <button
+                            class="dpad-btn dpad-up"
+                            ontouchend="detenerMovimiento()"  
+                            onmouseup="detenerMovimiento()" 
+                            onmousedown="moverArriba()"
+                            ontouchstart="moverArriba()"
+                            aria-label="Mover Arriba"
+                        >▲</button>
+                        
+                        <div class="dpad-middle">
+                            <button 
+                                class="dpad-btn dpad-left"
+                                onmouseup="detenerMovimiento()"
+                                ontouchend="detenerMovimiento()" 
+                                onmousedown="moverIzquierda()"
+                                ontouchstart="moverIzquierda()"
+                                aria-label="Mover Izquierda"
+                            >◀</button>
+                            <div class="dpad-center-core">
+                                <span>🎮</span>
+                            </div>
+                            <button 
+                                class="dpad-btn dpad-right"
+                                onmouseup="detenerMovimiento()"
+                                ontouchend="detenerMovimiento()" 
+                                onmousedown="moverDerecha()"
+                                ontouchstart="moverDerecha()"
+                                aria-label="Mover Derecha"
+                            >▶</button>
+                        </div>
+
+                        <button 
+                            class="dpad-btn dpad-down"
+                            onmouseup="detenerMovimiento()"
+                            ontouchend="detenerMovimiento()" 
+                            onmousedown="moverAbajo()"
+                            ontouchstart="moverAbajo()"
+                            aria-label="Mover Abajo"
+                        >▼</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECCIÓN 3: Seleccionar Ataque (Arena de Batalla) -->
+            <section id="seleccionar-ataque" class="glass-card">
+                <div class="section-heading">
+                    <span class="step-badge battle-badge">¡Colisión Detectada!</span>
+                    <h2 class="subtitulo">Arena de Combate</h2>
+                    <p class="section-desc">Selecciona tus <strong>5 ataques</strong> estratégicos. Las fortalezas elementales decidirán la victoria: Fuego vence a Tierra, Agua vence a Fuego, Tierra vence a Agua.</p>
+                </div>
+
+                <!-- Botones de Ataque -->
+                <div class="attacks-section-wrapper">
+                    <span class="attacks-label">Tus Poderes Elementales:</span>
+                    <div id="contenedorAtaques" class="tarjetas-ataques">
+                        <!-- Botones de ataque inyectados por JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Banner de Mensajes / Estado del Combate -->
+                <div id="mensajes" class="battle-hud-messages">
+                    <div class="status-icon-wrap">⚔️</div>
+                    <p id="resultado">¡Elige tus 5 ataques para combatir!</p>
+
+                    <section id="reiniciar" class="restart-wrapper">
+                        <button id="boton-reiniciar" class="btn-restart">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"></path><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                            <span>Jugar de Nuevo</span>
+                        </button>
+                    </section>
+                </div>
+
+                <!-- Arena Versus Layout -->
+                <div class="arena-versus">
+                    <!-- Tarjeta Jugador (Tú) -->
+                    <div class="combat-card player-box">
+                        <div class="combat-header">
+                            <span class="role-badge player-role">TÚ</span>
+                            <div class="score-pill">
+                                <span class="score-label">Victorias</span>
+                                <span id="vidas-jugador" class="score-number">0</span>
+                            </div>
+                        </div>
+                        <h3 id="mascota-jugador" class="combat-mokepon-name">Tu Mokepon</h3>
+                        <div class="moves-history">
+                            <span class="moves-title">Secuencia de Ataques:</span>
+                            <div id="ataques-del-jugador" class="moves-list"></div>
+                        </div>
+                    </div>
+
+                    <!-- Divisor Central VS -->
+                    <div class="vs-badge-container">
+                        <div class="vs-circle">VS</div>
+                    </div>
+
+                    <!-- Tarjeta Enemigo (Rival) -->
+                    <div class="combat-card enemy-box">
+                        <div class="combat-header">
+                            <span class="role-badge enemy-role">RIVAL</span>
+                            <div class="score-pill">
+                                <span class="score-label">Victorias</span>
+                                <span id="vidas-enemigo" class="score-number">0</span>
+                            </div>
+                        </div>
+                        <h3 id="mascota-enemigo" class="combat-mokepon-name">Mokepon Rival</h3>
+                        <div class="moves-history">
+                            <span class="moves-title">Secuencia del Rival:</span>
+                            <div id="ataques-del-enemigo" class="moves-list"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <script src="./js/mokepon.js"></script>
+    </body>
+</html>
