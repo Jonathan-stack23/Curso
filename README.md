@@ -2,6 +2,8 @@
 
 Bienvenido a **MOKEPON!**, un juego interactivo de combate elemental multijugador desarrollado en **JavaScript**, **Node.js** y **Express**, donde los jugadores eligen a su mascota favorita, recorren un mapa interactivo renderizado en **Canvas HTML5** en tiempo real y, al colisionar con otro jugador, entran automáticamente en una emocionante **Arena de Combate por turnos**.
 
+Link del usuario de platzi: https://platzi.com/p/jonmarcet/
+
 ---
 
 ## 📌 Tabla de Contenidos
