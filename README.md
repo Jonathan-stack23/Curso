@@ -4,6 +4,10 @@ Bienvenido a **MOKEPON!**, un juego interactivo de combate elemental multijugado
 
 Link del usuario de platzi: https://platzi.com/p/jonmarcet/
 
+Certificado:
+<img width="1999" height="1545" alt="image" src="https://github.com/user-attachments/assets/d67cf02c-c9da-4673-b95e-12b0ec1a7d97" />
+
+
 ---
 
 ## 📌 Tabla de Contenidos
